@@ -4,6 +4,8 @@ class db{
     private $servername = "localhost";
     private $username = "root";
     private $password = "";
+    private $db = "restful_php_api";
+    private $conn;
 
     public function connect(){
         $this->conn = null;
@@ -15,6 +17,7 @@ class db{
             } catch(PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
             }
+        return $this->conn;
     }
     
 }

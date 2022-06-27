@@ -4,13 +4,13 @@ class Question{
     private $conn;
 
     //question property
-    public $id_question;
-    public $title;
-    public $option_a;
-    public $option_b;
-    public $option_c;
-    public $option_d;
-    public $right_answer;
+    public $ID_QUESTION;
+    public $TITLE;
+    public $OPTION_A;
+    public $OPTION_B;
+    public $OPTION_C;
+    public $OPTION_D;
+    public $RIGHT_ANSWER;
 
     //connect db
     public function __construct($db)
@@ -20,7 +20,7 @@ class Question{
 
     //read data
     public function read(){
-        $query = "SELECT * FROM tbl_question ORDER BY tbl_question.ID_QUESTION DESC";
+        $query = "SELECT * FROM tbl_question ORDER BY ID_QUESTION DESC";
 
         $stmt = $this->conn->prepare($query);
 
