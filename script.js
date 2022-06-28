@@ -103,9 +103,9 @@ submitBTN.addEventListener("click", function(){
         const tongsocauhoi = document.getElementById('tongsocauhoi').value;
         quiz.innerHTML = 
         ` 
-            <h2>You got ${socaudung}/${tongsocauhoi} right answer</h2>
-            <p>Your total mark: ${diem} </p>
-            <button onclick="location.reload()">Re-do test</button>
+            <h2 class="text-center">You got ${socaudung}/${tongsocauhoi} right answer</h2>
+            <p class="text-center" style= "font-size:15px;">Your total mark: ${diem} </p>
+            <button class="btn btn-warning redotest" onclick="location.reload()">Re-do test</button>
         `
     }
 })
