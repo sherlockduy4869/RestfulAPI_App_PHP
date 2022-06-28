@@ -3,7 +3,7 @@ const submitBTN = document.getElementById('submit');
 const cautraloi = document.querySelectorAll('.cautraloi');
 
 let cauhoi_hientai = 0;
-let diem = 0;
+let socaudung = 0;
 
 const data_cauhoi = "";
 
@@ -12,7 +12,7 @@ load_question();
 function load_question(){
 
     remove_answer()
-
+    
     fetch('http://localhost/RestFullAPI_App/API/Question/read.php')
     .then(res=>res.json())
     .then(data=>{
@@ -47,6 +47,8 @@ function load_question(){
             document.getElementById('.cau_d').classList.add('hienthicautraloi');
         }
         
+        document.getElementById('caudung').value = get_cauhoi.right_answer;
+
     })
     .catch(error=>console.log(error));
 
@@ -55,24 +57,37 @@ function load_question(){
 //choose answer
 function get_answer(){
     let answer = undefined;
-    cautraloi.forEach((traloi)=>{
-        if(traloi.checked){
-            traloi = cautraloi.id;
+    cautraloi.forEach((cautraloi)=>{
+        if(cautraloi.checked){
+            answer = cautraloi.id;
         }
     })
+    return answer;
 }
 
 //remove choosing answer
 function remove_answer(){
-    cautraloi.forEach((answer)=>{
-        answer.checked = false;
+    cautraloi.forEach((cautraloi)=>{
+        cautraloi.checked = false;
     })
 }
 
 //submit event
 submitBTN.addEventListener("click", function(){
+    const answer = get_answer();
+    if(answer){
+        if(answer === document.getElementById('caudung').value){
+            socaudung++;
+            console.log(socaudung);
+        }
+    }
+
     cauhoi_hientai++;
-    //if(cauhoi_hientai< data_cauhoi.length){
     load_question();
-    //}
+
+    if(cauhoi_hientai< data_cauhoi.length){
+        load_question();
+    }else{
+        //Summary
+    }
 })
