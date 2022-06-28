@@ -20,7 +20,7 @@ class Question{
 
     //read data
     public function read(){
-        $query = "SELECT * FROM tbl_question ORDER BY ID_QUESTION DESC";
+        $query = "SELECT * FROM tbl_question ORDER BY ID_QUESTION ASC";
 
         $stmt = $this->conn->prepare($query);
 
@@ -98,6 +98,25 @@ class Question{
         $stmt->bindParam(':OPTION_C', $this->OPTION_C);
         $stmt->bindParam(':OPTION_D', $this->OPTION_D);
         $stmt->bindParam(':RIGHT_ANSWER', $this->RIGHT_ANSWER);
+        $stmt->bindParam(':ID_QUESTION', $this->ID_QUESTION);
+
+        if($stmt->execute()){
+            return true;
+        }
+
+        printf("ERROR %s.\n",$stmt->error);
+        return false;
+
+    }
+
+    public function delete(){
+        $query = "DELETE FROM tbl_question WHERE ID_QUESTION =:ID_QUESTION";
+        $stmt = $this->conn->prepare($query);
+
+        //clean data
+        $this->ID_QUESTION = htmlspecialchars(strip_tags($this->ID_QUESTION));
+
+        //bind data
         $stmt->bindParam(':ID_QUESTION', $this->ID_QUESTION);
 
         if($stmt->execute()){
