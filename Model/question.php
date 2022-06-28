@@ -79,7 +79,7 @@ class Question{
 
     public function update(){
         $query = "UPDATE tbl_question SET TITLE=:TITLE, OPTION_A=:OPTION_A, OPTION_B=:OPTION_B, 
-                  OPTION_C=:OPTION_C, OPTION_D=:OPTION_D, RIGHT_ANSWER=:RIGHT_ANSWER WHERE ID_QUESTION = ?";
+                  OPTION_C=:OPTION_C, OPTION_D=:OPTION_D, RIGHT_ANSWER=:RIGHT_ANSWER WHERE ID_QUESTION =:ID_QUESTION";
         $stmt = $this->conn->prepare($query);
 
         //clean data
@@ -89,6 +89,7 @@ class Question{
         $this->OPTION_C = htmlspecialchars(strip_tags($this->OPTION_C));
         $this->OPTION_D = htmlspecialchars(strip_tags($this->OPTION_D));
         $this->RIGHT_ANSWER = htmlspecialchars(strip_tags($this->RIGHT_ANSWER));
+        $this->ID_QUESTION = htmlspecialchars(strip_tags($this->ID_QUESTION));
 
         //bind data
         $stmt->bindParam(':TITLE', $this->TITLE);
