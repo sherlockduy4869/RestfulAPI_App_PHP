@@ -12,13 +12,13 @@ const data_cauhoi = "";
 load_question();
 
 function load_question(){
-
+    submitBTN.disabled = true;
     remove_answer()
     
     fetch('http://localhost/RestFullAPI_App/API/Question/read.php')
     .then(res=>res.json())
     .then(data=>{
-        //console.log(data)
+
         document.getElementById('tongsocauhoi').value = data.data.length;
 
         const cauhoi = document.getElementById('title');
@@ -37,16 +37,18 @@ function load_question(){
         a_cautraloi.innerText = get_cauhoi.option_a;
         b_cautraloi.innerText = get_cauhoi.option_b;
     
-        if(get_cauhoi.option_c != null){
+        if(get_cauhoi.option_c!=null){
+            document.getElementById('cau_c').classList.remove("hienthicautraloi");
             c_cautraloi.innerText = get_cauhoi.option_c;
         }else{
-            document.getElementById('.cau_c').classList.add('hienthicautraloi');
+            document.getElementById('cau_c').classList.add("hienthicautraloi");
         }
     
-        if(get_cauhoi.option_d != null){
+        if(get_cauhoi.option_d!=null){
+            document.getElementById('cau_d').classList.remove("hienthicautraloi");
             d_cautraloi.innerText = get_cauhoi.option_d;
         }else{
-            document.getElementById('.cau_d').classList.add('hienthicautraloi');
+            document.getElementById('cau_d').classList.add("hienthicautraloi");
         }
         
         document.getElementById('caudung').value = get_cauhoi.right_answer;
@@ -73,6 +75,13 @@ function remove_answer(){
         cautraloi.checked = false;
     })
 }
+
+//check to next question
+cautraloi.forEach((elem)=>{
+    elem.addEventListener("change", function(event){
+        submitBTN.removeAttribute("disabled");
+    })
+})
 
 //submit event
 submitBTN.addEventListener("click", function(){
