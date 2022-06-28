@@ -1,9 +1,11 @@
 
 const submitBTN = document.getElementById('submit');
 const cautraloi = document.querySelectorAll('.cautraloi');
+const quiz = document.getElementById('question');
 
 let cauhoi_hientai = 0;
 let socaudung = 0;
+let diem = 0;
 
 const data_cauhoi = "";
 
@@ -17,9 +19,9 @@ function load_question(){
     .then(res=>res.json())
     .then(data=>{
         //console.log(data)
-        const cauhoi = document.getElementById('title');
-        
+        document.getElementById('tongsocauhoi').value = data.data.length;
 
+        const cauhoi = document.getElementById('title');
         const a_cautraloi = document.getElementById('a_cautraloi');
         const b_cautraloi = document.getElementById('b_cautraloi');
         const c_cautraloi = document.getElementById('c_cautraloi');
@@ -30,7 +32,7 @@ function load_question(){
         const get_cauhoi = data.data[cauhoi_hientai];
 
 
-        console.log(get_cauhoi)
+        //console.log(get_cauhoi)
         cauhoi.innerText = get_cauhoi.title;
         a_cautraloi.innerText = get_cauhoi.option_a;
         b_cautraloi.innerText = get_cauhoi.option_b;
@@ -78,16 +80,23 @@ submitBTN.addEventListener("click", function(){
     if(answer){
         if(answer === document.getElementById('caudung').value){
             socaudung++;
-            console.log(socaudung);
+            diem++;
         }
     }
 
     cauhoi_hientai++;
     load_question();
 
-    if(cauhoi_hientai< data_cauhoi.length){
+    if(cauhoi_hientai< document.getElementById('tongsocauhoi').value){
         load_question();
     }else{
         //Summary
+        const tongsocauhoi = document.getElementById('tongsocauhoi').value;
+        quiz.innerHTML = 
+        ` 
+            <h2>You got ${socaudung}/${tongsocauhoi} right answer</h2>
+            <p>Your total mark: ${diem} </p>
+            <button onclick="location.reload()">Re-do test</button>
+        `
     }
 })
